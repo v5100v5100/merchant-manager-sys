@@ -50,6 +50,7 @@ public class PagePlugin implements Interceptor {
 	private static String dialect = "";	//数据库方言
 	private static String pageSqlId = ""; //mapper.xml中需要拦截的ID(正则匹配)
 	
+	@Override
 	public Object intercept(Invocation ivk) throws Throwable {
 		// TODO Auto-generated method stub
 		if(ivk.getTarget() instanceof RoutingStatementHandler){
@@ -88,8 +89,9 @@ public class PagePlugin implements Interceptor {
 						Field pageField = ReflectHelper.getFieldByFieldName(parameterObject,"page");
 						if(pageField!=null){
 							page = (Page) ReflectHelper.getValueByFieldName(parameterObject,"page");
-							if(page==null)
+							if(page==null) {
 								page = new Page();
+							}
 							page.setEntityOrField(false); 
 							page.setTotalResult(count);
 							ReflectHelper.setValueByFieldName(parameterObject,"page", page); //通过反射，对实体对象设置分页对象
@@ -170,11 +172,13 @@ public class PagePlugin implements Interceptor {
 		}
 	}
 	
+	@Override
 	public Object plugin(Object arg0) {
 		// TODO Auto-generated method stub
 		return Plugin.wrap(arg0, this);
 	}
 
+	@Override
 	public void setProperties(Properties p) {
 		dialect = p.getProperty("dialect");
 		if (Tools.isEmpty(dialect)) {

@@ -25,7 +25,7 @@ import com.mms.util.AppUtil;
 import com.mms.util.ObjectExcelView;
 import com.mms.util.PageData;
 import com.mms.util.Jurisdiction;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 
 /** 
  * 说明：操作日志记录
@@ -34,11 +34,11 @@ import com.mms.service.system.fhlog.logManager;
  */
 @Controller
 @RequestMapping(value="/fhlog")
-public class logController extends BaseController {
+public class FHlogController extends BaseController {
 	
 	String menuUrl = "fhlog/list.do"; //菜单地址(权限用)
 	@Resource(name="fhlogService")
-	private logManager fhlogService;
+	private FHlogManager fhlogService;
 	
 	/**删除
 	 * @param out

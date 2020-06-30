@@ -77,6 +77,5 @@ public class CustomerImgService implements CustomerImgManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("CustomerImgMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
 }
 

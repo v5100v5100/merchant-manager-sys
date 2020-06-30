@@ -28,7 +28,7 @@ import com.mms.service.erp.intoku.IntoKuManager;
 import com.mms.service.erp.outku.OutKuManager;
 import com.mms.service.system.buttonrights.ButtonrightsManager;
 import com.mms.service.system.fhbutton.FhbuttonManager;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 import com.mms.service.system.loginimg.LogInImgManager;
 import com.mms.service.system.menu.MenuManager;
 import com.mms.entity.system.Menu;
@@ -45,11 +45,6 @@ import com.mms.util.RightsHelper;
 import com.mms.util.Tools;
 /**
  * 总入口
- * @author mms QQ 3 1 3 5 9 6 7 9 0
- * 修改日期：2015/11/2
- */
-/**
- * @author Administrator
  *
  */
 @Controller
@@ -66,7 +61,7 @@ public class LoginController extends BaseController {
 	@Resource(name="fhbuttonService")
 	private FhbuttonManager fhbuttonService;
 	@Resource(name="fhlogService")
-	private logManager LOG;
+	private FHlogManager LOG;
 	@Resource(name="loginimgService")
 	private LogInImgManager loginimgService;
 	@Resource(name="customerService")

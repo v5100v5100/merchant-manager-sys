@@ -5,7 +5,8 @@ package com.mms.util.mail;
 * 修改时间：2015年7月27日
 * @version 2.0
  */
-import java.util.Properties;    
+import java.util.Properties;
+
 public class MailSenderInfo {    
     // 发送邮件的服务器的IP和端口    
     private String mailServerHost;    

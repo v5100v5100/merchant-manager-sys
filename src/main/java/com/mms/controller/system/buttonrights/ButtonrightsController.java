@@ -25,7 +25,7 @@ import com.mms.util.Jurisdiction;
 import com.mms.util.Tools;
 import com.mms.service.system.buttonrights.ButtonrightsManager;
 import com.mms.service.system.fhbutton.FhbuttonManager;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 import com.mms.service.system.role.RoleManager;
 
 /** 
@@ -45,7 +45,7 @@ public class ButtonrightsController extends BaseController {
 	@Resource(name="fhbuttonService")
 	private FhbuttonManager fhbuttonService;
 	@Resource(name="fhlogService")
-	private logManager LOG;
+	private FHlogManager LOG;
 	
 	/**列表
 	 * @throws Exception

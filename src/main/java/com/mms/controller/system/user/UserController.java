@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mms.controller.base.BaseController;
 import com.mms.entity.Page;
 import com.mms.entity.system.Role;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 import com.mms.service.system.menu.MenuManager;
 import com.mms.service.system.role.RoleManager;
 import com.mms.service.system.user.UserManager;
@@ -60,7 +60,7 @@ public class UserController extends BaseController {
 	@Resource(name="menuService")
 	private MenuManager menuService;
 	@Resource(name="fhlogService")
-	private logManager LOG;
+	private FHlogManager LOG;
 	
 	/**显示用户列表
 	 * @param page

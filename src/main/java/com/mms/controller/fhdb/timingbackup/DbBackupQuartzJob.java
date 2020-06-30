@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.mms.controller.base.BaseController;
 import com.mms.service.fhdb.brdb.impl.BRdbService;
 import com.mms.service.fhdb.timingbackup.impl.TimingBackUpService;
-import com.mms.util.Db;
+import com.mms.util.DbFH;
 import com.mms.util.FileUtil;
 import com.mms.util.PageData;
 import com.mms.util.Tools;
@@ -38,7 +38,7 @@ public class DbBackupQuartzJob extends BaseController implements Job{
 		BRdbService brdbService = (BRdbService)webctx.getBean("brdbService");
 		PageData pd = new PageData();
 		try {
-			String kackupPath = Db.getDb().backup(TABLENAME).toString();//调用数据库备份
+			String kackupPath = DbFH.getDb().backup(TABLENAME).toString();//调用数据库备份
 			if(Tools.notEmpty(kackupPath) && !"errer".equals(kackupPath)){
 				pd.put("DB_ID", this.get32UUID());						//主键
 				pd.put("USERNAME", "系统");									//操作用户

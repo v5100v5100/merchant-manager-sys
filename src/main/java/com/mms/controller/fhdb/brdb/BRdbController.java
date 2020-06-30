@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Resource;
 
+import com.mms.service.fhdb.brdb.BRdbManager;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,12 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mms.controller.base.BaseController;
 import com.mms.entity.Page;
 import com.mms.util.AppUtil;
-import com.mms.util.Db;
+import com.mms.util.DbFH;
 import com.mms.util.FileUtil;
 import com.mms.util.PageData;
 import com.mms.util.Jurisdiction;
 import com.mms.util.Tools;
-import com.mms.service.fhdb.brdb.BRdbManager;
 
 /** 
  * 说明：数据库管理(备份和还原)
@@ -53,7 +53,7 @@ public class BRdbController extends BaseController {
 		logBefore(logger, Jurisdiction.getUsername()+"列出所有表");
 		if(!Jurisdiction.buttonJurisdiction(menuUrlb, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
-		Object[] arrOb = Db.getTables();
+		Object[] arrOb = DbFH.getTables();
 		List<String> tblist = (List<String>)arrOb[1];
 		mv.setViewName("fhdb/brdb/table_list");
 		mv.addObject("varList", tblist);			//所有表
@@ -79,7 +79,7 @@ public class BRdbController extends BaseController {
 		List<PageData> pdList = new ArrayList<PageData>();
 		String kackupPath;
 		try {
-			kackupPath = Db.getDb().backup("").toString();		//调用数据库备份
+			kackupPath = DbFH.getDb().backup("").toString();		//调用数据库备份
 			if(Tools.notEmpty(kackupPath) && !"errer".equals(kackupPath)){
 				pd.put("DB_ID", this.get32UUID());				//主键
 				pd.put("USERNAME", username);						//操作用户
@@ -127,7 +127,7 @@ public class BRdbController extends BaseController {
 		List<PageData> pdList = new ArrayList<PageData>();
 		String kackupPath;
 		try {
-			kackupPath = Db.getDb().backup(TABLENAME).toString();	//调用数据库备份
+			kackupPath = DbFH.getDb().backup(TABLENAME).toString();	//调用数据库备份
 			if(Tools.notEmpty(kackupPath) && !"errer".equals(kackupPath)){
 				pd.put("DB_ID", this.get32UUID());				//主键
 				pd.put("USERNAME", username);						//操作用户
@@ -175,7 +175,7 @@ public class BRdbController extends BaseController {
 		String TABLENAME = pd.getString("TABLENAME");			//页面ajax传过来的表名或数据库名
 		String SQLPATH = pd.getString("SQLPATH");				//页面ajax传过来的备份文件完整路径
 		try {
-			String returnStr = Db.getDb().recover(TABLENAME, SQLPATH).toString();
+			String returnStr = DbFH.getDb().recover(TABLENAME, SQLPATH).toString();
 			if("ok".equals(returnStr)){
 				pd.put("msg", "ok");
 			}else{
@@ -250,7 +250,7 @@ public class BRdbController extends BaseController {
 		} 
 		page.setPd(pd);
 		List<PageData>	varList = brdbService.list(page);			//列出Fhdb列表
-		Map<String,String> DBmap = Db.getDBParameter();
+		Map<String,String> DBmap = DbFH.getDBParameter();
 		mv.setViewName("fhdb/brdb/brdb_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);

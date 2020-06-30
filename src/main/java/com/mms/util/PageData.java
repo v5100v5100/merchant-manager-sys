@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * 修改时间：2014年9月20日
  * @version
  */
-public class PageData extends HashMap implements Map{
+public class PageData extends HashMap implements Map {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -78,46 +78,54 @@ public class PageData extends HashMap implements Map{
 		return map.remove(key);
 	}
 
+	@Override
 	public void clear() {
 		map.clear();
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		// TODO Auto-generated method stub
 		return map.containsKey(key);
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		// TODO Auto-generated method stub
 		return map.containsValue(value);
 	}
 
+	@Override
 	public Set entrySet() {
 		// TODO Auto-generated method stub
 		return map.entrySet();
 	}
 
+	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return map.isEmpty();
 	}
 
+	@Override
 	public Set keySet() {
 		// TODO Auto-generated method stub
 		return map.keySet();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
 	public void putAll(Map t) {
 		// TODO Auto-generated method stub
 		map.putAll(t);
 	}
 
+	@Override
 	public int size() {
 		// TODO Auto-generated method stub
 		return map.size();
 	}
 
+	@Override
 	public Collection values() {
 		// TODO Auto-generated method stub
 		return map.values();

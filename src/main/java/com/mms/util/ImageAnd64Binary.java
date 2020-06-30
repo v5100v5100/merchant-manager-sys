@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import Decoder.BASE64Decoder;
-import Decoder.BASE64Encoder;
+//import Decoder.BASE64Decoder;
+//import Decoder.BASE64Encoder;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 /** 
  * 说明：BASE64处理

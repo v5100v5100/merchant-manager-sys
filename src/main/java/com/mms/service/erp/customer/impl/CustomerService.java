@@ -24,6 +24,7 @@ public class CustomerService implements CustomerManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public void save(PageData pd)throws Exception{
 		dao.save("CustomerMapper.save", pd);
 	}
@@ -32,6 +33,7 @@ public class CustomerService implements CustomerManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public void delete(PageData pd)throws Exception{
 		dao.delete("CustomerMapper.delete", pd);
 	}
@@ -40,6 +42,7 @@ public class CustomerService implements CustomerManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public void edit(PageData pd)throws Exception{
 		dao.update("CustomerMapper.edit", pd);
 	}
@@ -48,6 +51,7 @@ public class CustomerService implements CustomerManager{
 	 * @param page
 	 * @throws Exception
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
 		return (List<PageData>)dao.findForList("CustomerMapper.datalistPage", page);
@@ -57,6 +61,7 @@ public class CustomerService implements CustomerManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
 		return (List<PageData>)dao.findForList("CustomerMapper.listAll", pd);
@@ -66,6 +71,7 @@ public class CustomerService implements CustomerManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public PageData findById(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("CustomerMapper.findById", pd);
 	}
@@ -74,6 +80,7 @@ public class CustomerService implements CustomerManager{
 	 * @param ArrayDATA_IDS
 	 * @throws Exception
 	 */
+	@Override
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("CustomerMapper.deleteAll", ArrayDATA_IDS);
 	}

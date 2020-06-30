@@ -14,16 +14,17 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;  
   
-/** 定时任务管理类 
- * @author  3 13 59679 0 Q
- * @date 2016-4-9
+/**
+ *  定时任务管理类
+ *
  */
 public class QuartzManager {  
     private static SchedulerFactory gSchedulerFactory = new StdSchedulerFactory();  //创建一个SchedulerFactory工厂实例
     private static String JOB_GROUP_NAME = "_JOBGROUP_NAME";  					//任务组
     private static String TRIGGER_GROUP_NAME = "_TRIGGERGROUP_NAME";  			//触发器组
   
-    /**添加一个定时任务，使用默认的任务组名，触发器名，触发器组名  
+    /**
+     * 添加一个定时任务，使用默认的任务组名，触发器名，触发器组名
      * @param jobName 任务名
      * @param cls 任务
      * @param time 时间设置，参考quartz说明文档
@@ -162,7 +163,9 @@ public class QuartzManager {
             Scheduler sched = gSchedulerFactory.getScheduler();  							//通过SchedulerFactory构建Scheduler对象
             TriggerKey triggerKey = TriggerKey.triggerKey(triggerName,triggerGroupName); 	//通过触发器名和组名获取TriggerKey
             CronTrigger trigger = (CronTrigger)sched.getTrigger(triggerKey);				//通过TriggerKey获取CronTrigger
-            if (trigger == null)  return;  
+            if (trigger == null){
+                return;
+            }
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(trigger.getCronExpression());
             String oldTime = trigger.getCronExpression();  
             if (!oldTime.equalsIgnoreCase(time)) {  

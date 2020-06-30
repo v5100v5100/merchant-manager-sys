@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mms.controller.base.BaseController;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 import com.mms.service.system.user.UserManager;
 import com.mms.util.AppUtil;
 import com.mms.util.Const;
@@ -38,7 +38,7 @@ public class SysUserController extends BaseController {
 	@Resource(name="userService")
 	private UserManager userService;
 	@Resource(name="fhlogService")
-	private logManager LOG;
+	private FHlogManager LOG;
 	
 	/**系统用户注册接口
 	 * @return

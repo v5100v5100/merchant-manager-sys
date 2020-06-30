@@ -39,16 +39,16 @@ import org.apache.commons.logging.LogFactory;
  * 修改时间：2016年3月29日
  * @version
  */
-public class Db{
-	private static Log logger = LogFactory.getLog(Db.class);
+public class DbFH{
+	private static Log logger = LogFactory.getLog(DbFH.class);
 	private static Properties pros = getPprVue();
 	public static Map<String, String> backUpTableList = new ConcurrentHashMap<String, String>();
 	public static Map<String, String> recoverTableList = new ConcurrentHashMap<String, String>();
-	private static Db db = new Db();
+	private static DbFH db = new DbFH();
 	
 	public static void main(String[] arg){
 		try {
-			String str = Db.getDb().backup("").toString();//调用数据库备份
+			String str = DbFH.getDb().backup("").toString();//调用数据库备份
 			System.out.println(FileUtil.getFilesize(str));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class Db{
 		}
 	}
 	
-	public static Db getDb(){
+	public static DbFH getDb(){
 		return db;
 	}
 	
@@ -108,9 +108,9 @@ public class Db{
 		String address = pd.getString("dbAddress");			//数据库连接地址
 		String dbport = pd.getString("dbport");				//端口
 		String databaseName = pd.getString("databaseName");	//数据库名
-		Connection conn = Db.getCon(dbtype,username,password,address+":"+dbport,databaseName);
+		Connection conn = DbFH.getCon(dbtype,username,password,address+":"+dbport,databaseName);
 		if("oracle".equals(dbtype)){databaseName = username;}
-		Object[] arrOb = {databaseName,Db.getTablesByCon(conn, "sqlserver".equals(dbtype)?null:databaseName),dbtype};
+		Object[] arrOb = {databaseName,DbFH.getTablesByCon(conn, "sqlserver".equals(dbtype)?null:databaseName),dbtype};
 		return arrOb;
 	}
 	
@@ -126,9 +126,9 @@ public class Db{
 		String address = pros.getProperty("dbAddress");			//数据库连接地址
 		String dbport = pros.getProperty("dbport");				//端口
 		String databaseName = pros.getProperty("databaseName");	//数据库名
-		Connection conn = Db.getCon(dbtype,username,password,address+":"+dbport,databaseName);
+		Connection conn = DbFH.getCon(dbtype,username,password,address+":"+dbport,databaseName);
 		if("oracle".equals(dbtype)){databaseName = username;}
-		Object[] arrOb = {databaseName,Db.getTablesByCon(conn, "sqlserver".equals(dbtype)?null:databaseName),dbtype};
+		Object[] arrOb = {databaseName,DbFH.getTablesByCon(conn, "sqlserver".equals(dbtype)?null:databaseName),dbtype};
 		return arrOb;
 	}
 
@@ -144,7 +144,7 @@ public class Db{
 		String address = pros.getProperty("dbAddress");			//数据库连接地址
 		String dbport = pros.getProperty("dbport");				//端口
 		String databaseName = pros.getProperty("databaseName");	//数据库名
-		return Db.getCon(dbtype,username,password,address+":"+dbport,databaseName);
+		return DbFH.getCon(dbtype,username,password,address+":"+dbport,databaseName);
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public class Db{
 		String address = pd.getString("dbAddress");			//数据库连接地址
 		String dbport = pd.getString("dbport");				//端口
 		String databaseName = pd.getString("databaseName");	//数据库名
-		return Db.getCon(dbtype,username,password,address+":"+dbport,databaseName);
+		return DbFH.getCon(dbtype,username,password,address+":"+dbport,databaseName);
 	}
 	
 	/**
@@ -214,7 +214,6 @@ public class Db{
 	}
 
 	/**用于执行某表的备份(内部类)线程
-	 * @author Q 3 135 9 67 90
 	 * Callable 有返回值的线程接口
 	 */
 	class DbBackUpCallable implements Callable<Object>{
@@ -240,7 +239,7 @@ public class Db{
 				if(!"sqlserver".equals(dbtype)){
 					sqlpath = sqlpath+DateUtil.getDays()+"/";			//日期当路径分支
 					if("yes".equals(remoteDB)){//数据库另外一台服务器上(和tomcat不在同一台服务器上)
-						commandStr = Db.getExecStr(dbtype,dbpath,"localhost",username,password,sqlpath,tableName,databaseName,ffilename); //命令语句
+						commandStr = DbFH.getExecStr(dbtype,dbpath,"localhost",username,password,sqlpath,tableName,databaseName,ffilename); //命令语句
 						Socket ss = null;
 						DataOutputStream bb = null;
 						DataInputStream dat = null;
@@ -262,7 +261,7 @@ public class Db{
 						}
 					}else{							//数据库在本地(和tomcat在同一台服务器上)
 						FileUtil.createDir(sqlpath+"/mms.mms");
-						commandStr = Db.getExecStr(dbtype,dbpath,address,username,password,sqlpath,tableName,databaseName,ffilename); //命令语句
+						commandStr = DbFH.getExecStr(dbtype,dbpath,address,username,password,sqlpath,tableName,databaseName,ffilename); //命令语句
 						Runtime cmd = Runtime.getRuntime();
 						Process p = cmd.exec(commandStr);
 						p.waitFor(); 				// 该语句用于标记，如果备份没有完成，则该线程持续等待
@@ -270,7 +269,7 @@ public class Db{
 				}else{//当数据库为sqlserver时 只能备份整库，不能单表备份
 					String spath = sqlpath + databaseName + "_"+ffilename + ".bak";// name文件名  
 		            String bakSQL = "backup database "+databaseName+" to disk=? with init";// SQL语句  
-		            PreparedStatement bak = Db.getCon().prepareStatement(bakSQL);  
+		            PreparedStatement bak = DbFH.getCon().prepareStatement(bakSQL);
 		            bak.setString(1, spath);// path必须是绝对路径  
 		            bak.execute(); 			// 备份数据库  
 		            bak.close(); 
@@ -413,7 +412,7 @@ public class Db{
 	                cs.execute(); 					// 还原数据库  
 	                ps.execute(); 					// 恢复数据库连接   */
 					String reSQL = "use master exec killspid '"+databaseName+"' restore database "+databaseName+" from disk=? with replace"; // 还原数据库
-					PreparedStatement recovery = Db.getCon().prepareStatement(reSQL);
+					PreparedStatement recovery = DbFH.getCon().prepareStatement(reSQL);
 					recovery.setString(1, sqlFilePath); 
 					 if (!recovery.execute()){
 						 return "ok";
@@ -470,10 +469,10 @@ public class Db{
 		Statement stmt = null;
 		ResultSet rs = null;
 		Connection conn = null;
-		conn = Db.getCon();
+		conn = DbFH.getCon();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(sql);
-		columnList = Db.getFieldLsit(conn,sql);
+		columnList = DbFH.getFieldLsit(conn,sql);
 		while(rs.next()){
 			List<Object> onedataList = new ArrayList<Object>(); 		//存放每条记录里面每个字段的值
 			for(int i =1;i<columnList.size()+1;i++){
@@ -495,7 +494,7 @@ public class Db{
 	public static void executeUpdate(String sql) throws ClassNotFoundException, SQLException{
 		Statement stmt = null;
 		Connection conn = null;
-		conn = Db.getCon();
+		conn = DbFH.getCon();
 		stmt = conn.createStatement();
 		stmt.executeUpdate(sql);
 		conn.close();
@@ -545,7 +544,7 @@ public class Db{
 	 * @throws IOException
 	 */
 	public static Properties getPprVue() {
-		InputStream inputStream = Db.class.getClassLoader().getResourceAsStream("dbfh.properties");
+		InputStream inputStream = DbFH.class.getClassLoader().getResourceAsStream("dbfh.properties");
 		Properties p = new Properties();
 		try {
 			p.load(inputStream);
@@ -568,8 +567,3 @@ public class Db{
 	}
 
 }
-
-
-
-
-//创建人： Q 3 135 9 67 90

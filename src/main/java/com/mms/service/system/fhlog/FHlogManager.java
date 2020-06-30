@@ -11,10 +11,12 @@ import com.mms.util.PageData;
  * 创建时间：2016-05-10
  * @version
  */
-public interface logManager{
+public interface FHlogManager{
 
-	/**新增
-	 * @param pd
+	/**
+	 * 新增
+	 * @param USERNAME
+	 * @param CONTENT
 	 * @throws Exception
 	 */
 	public void save(String USERNAME, String CONTENT)throws Exception;

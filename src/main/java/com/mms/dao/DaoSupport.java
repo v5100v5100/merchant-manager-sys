@@ -26,6 +26,7 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public Object save(String str, Object obj) throws Exception {
 		return sqlSessionTemplate.insert(str, obj);
 	}
@@ -48,6 +49,7 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public Object update(String str, Object obj) throws Exception {
 		return sqlSessionTemplate.update(str, obj);
 	}
@@ -95,6 +97,7 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public Object delete(String str, Object obj) throws Exception {
 		return sqlSessionTemplate.delete(str, obj);
 	}
@@ -106,6 +109,7 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public Object findForObject(String str, Object obj) throws Exception {
 		return sqlSessionTemplate.selectOne(str, obj);
 	}
@@ -117,14 +121,13 @@ public class DaoSupport implements DAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
 	public Object findForList(String str, Object obj) throws Exception {
 		return sqlSessionTemplate.selectList(str, obj);
 	}
 	
+	@Override
 	public Object findForMap(String str, Object obj, String key, String value) throws Exception {
 		return sqlSessionTemplate.selectMap(str, obj, key);
 	}
-	
 }
-
-

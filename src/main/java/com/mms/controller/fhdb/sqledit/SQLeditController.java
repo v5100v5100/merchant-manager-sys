@@ -1,4 +1,4 @@
-package com.mms.controller.fhdb.sqledit;
+package com.mms.controller.fhDbFH.sqledit;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mms.controller.base.BaseController;
 import com.mms.util.AppUtil;
-import com.mms.util.Db;
+import com.mms.util.DbFH;
 import com.mms.util.Jurisdiction;
 import com.mms.util.ObjectExcelView;
 import com.mms.util.PageData;
@@ -70,7 +70,7 @@ public class SQLeditController extends BaseController {
 		long startTime = System.currentTimeMillis(); 					//请求起始时间_毫秒
 		Object[] arrOb = null;
 		try {
-			arrOb = Db.executeQuery(sql);
+			arrOb = DbFH.executeQuery(sql);
 			long endTime = System.currentTimeMillis(); 						//请求结束时间_毫秒
 			pd.put("rTime", String.valueOf((endTime - startTime)/1000.000));			//存入数据库查询时间
 			if(null != arrOb){
@@ -107,7 +107,7 @@ public class SQLeditController extends BaseController {
 		String sql = pd.getString("sql"); 									//前台传过来的sql语句
 		long startTime = System.currentTimeMillis(); 						//请求起始时间_毫秒
 		try {
-			Db.executeUpdate(sql);
+			DbFH.executeUpdate(sql);
 			pd.put("msg", "ok");
 		} catch (ClassNotFoundException e) {
 			pd.put("msg", "no");
@@ -139,7 +139,7 @@ public class SQLeditController extends BaseController {
 				List<List<Object>> dataList = new ArrayList<List<Object>>();	//存放数据(从数据库读出来的一条条的数据)
 				Object[] arrOb = null;
 				try {
-					arrOb = Db.executeQuery(sql);
+					arrOb = DbFH.executeQuery(sql);
 					if(null != arrOb){
 						columnList = (List<String>)arrOb[0];
 						dataList = (List<List<Object>>)arrOb[1];

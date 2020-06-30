@@ -3,6 +3,8 @@ package com.mms.util;
 import java.util.Map;
 
 import org.codehaus.jackson.map.util.JSONPObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** 接口参数校验
  * @author:	mms 
@@ -10,7 +12,7 @@ import org.codehaus.jackson.map.util.JSONPObject;
  */
 public class AppUtil  {
 	
-	protected static Logger logger = Logger.getLogger(AppUtil.class);
+	protected static Logger logger = LoggerFactory.getLogger(AppUtil.class);
 	
 	/**检查参数是否完整
 	 * @param method

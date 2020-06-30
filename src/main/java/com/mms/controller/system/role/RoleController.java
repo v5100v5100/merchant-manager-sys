@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mms.controller.base.BaseController;
 import com.mms.entity.system.Menu;
 import com.mms.entity.system.Role;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 import com.mms.service.system.role.RoleManager;
 import com.mms.service.system.user.UserManager;
 import com.mms.service.system.menu.MenuManager;
@@ -48,7 +48,7 @@ public class RoleController extends BaseController {
 	@Resource(name="userService")
 	private UserManager userService;
 	@Resource(name="fhlogService")
-	private logManager LOG;
+	private FHlogManager LOG;
 	
 	/** 进入权限首页
 	 * @param 

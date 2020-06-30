@@ -16,10 +16,12 @@ import com.mms.util.Const;
  */
 public class WebAppContextListener implements ServletContextListener {
 
+	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		// TODO Auto-generated method stub
 		Const.WEB_APP_CONTEXT = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());

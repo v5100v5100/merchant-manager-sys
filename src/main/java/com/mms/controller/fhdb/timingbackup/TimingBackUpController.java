@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mms.controller.base.BaseController;
 import com.mms.entity.Page;
 import com.mms.util.AppUtil;
-import com.mms.util.Db;
+import com.mms.util.DbFH;
 import com.mms.util.ObjectExcelView;
 import com.mms.util.PageData;
 import com.mms.util.Jurisdiction;
@@ -154,7 +154,7 @@ public class TimingBackUpController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		Object[] arrOb = Db.getTables();
+		Object[] arrOb = DbFH.getTables();
 		List<String> tblist = (List<String>)arrOb[1];
 		mv.addObject("varList", tblist);			//所有表
 		mv.addObject("dbtype", arrOb[2]);			//数据库类型
@@ -174,7 +174,7 @@ public class TimingBackUpController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		Object[] arrOb = Db.getTables();
+		Object[] arrOb = DbFH.getTables();
 		List<String> tblist = (List<String>)arrOb[1];
 		mv.addObject("varList", tblist);			//所有表
 		mv.addObject("dbtype", arrOb[2]);			//数据库类型

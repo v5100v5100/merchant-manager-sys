@@ -12,7 +12,7 @@ import com.mms.entity.Page;
 import com.mms.util.PageData;
 import com.mms.util.Tools;
 import com.mms.util.UuidUtil;
-import com.mms.service.system.fhlog.logManager;
+import com.mms.service.system.fhlog.FHlogManager;
 
 /** 
  * 说明： 操作日志记录
@@ -21,7 +21,7 @@ import com.mms.service.system.fhlog.logManager;
  * @version
  */
 @Service("fhlogService")
-public class logService implements logManager{
+public class FHlogService implements FHlogManager{
 
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
@@ -30,6 +30,7 @@ public class logService implements logManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public void save(String USERNAME, String CONTENT)throws Exception{
 		PageData pd = new PageData();
 		pd.put("USERNAME", USERNAME);					//用户名
@@ -43,6 +44,7 @@ public class logService implements logManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public void delete(PageData pd)throws Exception{
 		dao.delete("logMapper.delete", pd);
 	}
@@ -51,6 +53,7 @@ public class logService implements logManager{
 	 * @param page
 	 * @throws Exception
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
 		return (List<PageData>)dao.findForList("logMapper.datalistPage", page);
@@ -60,6 +63,7 @@ public class logService implements logManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
 		return (List<PageData>)dao.findForList("logMapper.listAll", pd);
@@ -69,6 +73,7 @@ public class logService implements logManager{
 	 * @param pd
 	 * @throws Exception
 	 */
+	@Override
 	public PageData findById(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("logMapper.findById", pd);
 	}
@@ -77,6 +82,7 @@ public class logService implements logManager{
 	 * @param ArrayDATA_IDS
 	 * @throws Exception
 	 */
+	@Override
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("logMapper.deleteAll", ArrayDATA_IDS);
 	}

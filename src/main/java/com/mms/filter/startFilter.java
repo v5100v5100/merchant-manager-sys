@@ -20,7 +20,7 @@ import org.java_websocket.WebSocketImpl;
 import com.mms.plugin.websocketInstantMsg.ChatServer;
 import com.mms.plugin.websocketOnline.OnlineChatServer;
 import com.mms.util.Const;
-import com.mms.util.Db;
+import com.mms.util.DbFH;
 import com.mms.util.Tools;
 import com.mms.controller.base.BaseController;
 
@@ -35,6 +35,7 @@ public class startFilter extends BaseController implements Filter{
 	/**
 	 * 初始化
 	 */
+	@Override
 	public void init(FilterConfig fc) throws ServletException {
 		this.startWebsocketInstantMsg();
 		this.startWebsocketOnline();
@@ -88,7 +89,7 @@ public class startFilter extends BaseController implements Filter{
 	 */
 	public void reductionDbBackupQuartzState(){
 		try {
-			Db.executeUpdate("update DB_TIMINGBACKUP set STATUS = '2'");
+			DbFH.executeUpdate("update DB_TIMINGBACKUP set STATUS = '2'");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,12 +117,14 @@ public class startFilter extends BaseController implements Filter{
 		}, time, 1000*60*60*24);// 这里设定将延时每天固定执行
 	}
 	
+	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 	
+	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
-			FilterChain arg2) throws IOException, ServletException {
+						 FilterChain arg2) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 	}
 	
