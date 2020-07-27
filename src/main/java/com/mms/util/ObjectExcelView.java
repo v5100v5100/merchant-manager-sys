@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -71,9 +72,57 @@ public class ObjectExcelView extends /*AbstractExcelView*/AbstractXlsView {
 //		}
 //	}
 
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////
+
+//	private String fileName=null;
+//	private ExcelExportService excelExportService=null;
+//	public ExcelView(ExcelExportService excelExportService){
+//		this.excelExportService=excelExportService;
+//	}
+//	public ExcelView(String fileName,ExcelExportService excelExportService){
+//		this.fileName=fileName;
+//		this.excelExportService=excelExportService;
+//	}
+//
+//	public String getFileName() {
+//		return fileName;
+//	}
+//
+//	public void setFileName(String fileName) {
+//		this.fileName = fileName;
+//	}
+//
+//	public ExcelExportService getExcelExportService() {
+//		return excelExportService;
+//	}
+//
+//	public void setExcelExportService(ExcelExportService excelExportService) {
+//		this.excelExportService = excelExportService;
+//	}
+
+	/**
+	 * Application-provided subclasses must implement this method to populate
+	 * the Excel workbook document, given the model.
+	 *
+	 * @param model    the model Map
+	 * @param workbook the Excel workbook to populate
+	 * @param request  in case we need locale etc. Shouldn't look at attributes.
+	 * @param response in case we need to set cookies. Shouldn't write to it.
+	 */
 	@Override
-	protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest httpServletRequest,
-									  HttpServletResponse httpServletResponse) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		if(excelExportService==null){
+//			throw new RuntimeException("导出接口不能为空");
+//		}
+//		if(!StringUtils.isEmpty(fileName)){
+//			String reqCharset=request.getCharacterEncoding();
+//			reqCharset=reqCharset==null?"UTF-8":reqCharset;
+//			fileName=new String(fileName.getBytes(reqCharset),"ISO8859-1");
+//			response.setHeader("Content-disposition","attachment;fileName="+fileName);
+//		}
+		//excelExportService.makeWorkBook(model,workbook);
 
 	}
 }

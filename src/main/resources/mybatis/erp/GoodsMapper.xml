@@ -226,6 +226,4 @@
 		where 
 			GOODS_ID = #{GOODS_ID}
 	</update>
-	
-	<!-- fh313596790qq(青苔) -->
 </mapper>
